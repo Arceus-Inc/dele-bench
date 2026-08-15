@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dele-bench.dev/schemas/task.schema.json",
+  "title": "Dele-bench public task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "track",
+    "instruction",
+    "entry_role",
+    "organization",
+    "world_fixture",
+    "limits",
+    "tags"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^db-[a-z]+-[0-9]{3}$"},
+    "version": {"type": "string"},
+    "track": {"enum": ["workflow", "approval", "mixed", "resilience"]},
+    "instruction": {"type": "string", "minLength": 20},
+    "entry_role": {"type": "string"},
+    "organization": {"type": "string"},
+    "world_fixture": {"type": "string"},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_events", "max_handoffs", "deadline_ticks"],
+      "properties": {
+        "max_events": {"type": "integer", "minimum": 1},
+        "max_handoffs": {"type": "integer", "minimum": 1},
+        "deadline_ticks": {"type": "integer", "minimum": 1}
+      }
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    }
+  }
+}

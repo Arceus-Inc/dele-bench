@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dele-bench.dev/schemas/organization.schema.json",
+  "title": "Dele-bench organization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "roles", "routing", "systems", "policies"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]+$"},
+    "version": {"type": "string"},
+    "roles": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "capabilities", "tools", "data_scopes", "capacity"],
+        "properties": {
+          "id": {"type": "string"},
+          "display_name": {"type": "string"},
+          "capabilities": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string"}
+          },
+          "tools": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string"}
+          },
+          "data_scopes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string"}
+          },
+          "capacity": {"type": "integer", "minimum": 0},
+          "reports_to": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "edges"],
+      "properties": {
+        "mode": {"enum": ["peer", "hierarchical", "hybrid"]},
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["from", "to", "kinds"],
+            "properties": {
+              "from": {"type": "string"},
+              "to": {"type": "string"},
+              "kinds": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": ["delegate", "consult", "review", "approve", "escalate", "return"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "systems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "tools"],
+        "properties": {
+          "id": {"type": "string"},
+          "tools": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "effect"],
+              "properties": {
+                "id": {"type": "string"},
+                "effect": {"enum": ["read", "write", "external", "approval"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {
+            "enum": ["approval", "authority", "privacy", "spend", "publication", "quality"]
+          },
+          "applies_to": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

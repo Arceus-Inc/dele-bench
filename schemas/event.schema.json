@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dele-bench.dev/schemas/event.schema.json",
+  "title": "Dele-bench canonical event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "task_id", "type", "actor_role", "tick", "payload"],
+  "properties": {
+    "id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "type": {
+      "enum": [
+        "work_started",
+        "handoff_sent",
+        "handoff_accepted",
+        "handoff_refused",
+        "tool_called",
+        "state_mutated",
+        "artifact_created",
+        "approval_requested",
+        "approval_resolved",
+        "work_completed",
+        "callback_delivered"
+      ]
+    },
+    "actor_role": {"type": "string"},
+    "tick": {"type": "integer", "minimum": 0},
+    "work_id": {"type": ["string", "null"]},
+    "parent_work_id": {"type": ["string", "null"]},
+    "payload": {
+      "type": "object",
+      "properties": {
+        "target_role": {"type": "string"},
+        "kind": {
+          "enum": ["delegate", "consult", "review", "approve", "escalate", "return"]
+        },
+        "intent": {"type": "string"},
+        "context": {"type": "object"},
+        "artifact_refs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "system": {"type": "string"},
+        "tool": {"type": "string"},
+        "effect": {"type": "string"},
+        "reason": {"type": "string"},
+        "decision": {
+          "enum": [
+            "approve",
+            "reject",
+            "require_docs",
+            "require_preapproval",
+            "not_applicable"
+          ]
+        }
+      }
+    }
+  }
+}

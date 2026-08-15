@@ -1,0 +1,164 @@
+{
+  "id": "product-company-v1",
+  "version": "0.1.0",
+  "roles": [
+    {
+      "id": "executive",
+      "display_name": "Executive",
+      "capabilities": ["company_direction", "capital_allocation", "final_executive_decision"],
+      "tools": ["strategy.read", "directive.write", "approval.resolve"],
+      "data_scopes": ["strategy", "portfolio", "approvals"],
+      "capacity": 1,
+      "reports_to": null
+    },
+    {
+      "id": "product_manager",
+      "display_name": "Product Manager",
+      "capabilities": ["product_decision", "requirements", "work_coordination", "root_closure"],
+      "tools": ["product.read", "plan.write", "work.create", "work.read"],
+      "data_scopes": ["product", "work", "analytics_summaries"],
+      "capacity": 2,
+      "reports_to": "executive"
+    },
+    {
+      "id": "analyst",
+      "display_name": "Analyst",
+      "capabilities": ["metric_computation", "experiment_analysis", "evidence_validation"],
+      "tools": ["warehouse.query", "notebook.write", "finding.write"],
+      "data_scopes": ["warehouse", "experiments"],
+      "capacity": 2,
+      "reports_to": "product_manager"
+    },
+    {
+      "id": "designer",
+      "display_name": "Product Designer",
+      "capabilities": ["interaction_design", "design_system", "accessibility_spec"],
+      "tools": ["design.read", "design_spec.write", "prototype.write"],
+      "data_scopes": ["design", "product"],
+      "capacity": 1,
+      "reports_to": "product_manager"
+    },
+    {
+      "id": "frontend_engineer",
+      "display_name": "Frontend Engineer",
+      "capabilities": ["frontend_implementation", "browser_testing", "ui_release_evidence"],
+      "tools": ["repo.read", "repo.write_frontend", "ci.run", "browser.test", "release.stage"],
+      "data_scopes": ["repo", "ci", "design_specs"],
+      "capacity": 2,
+      "reports_to": "product_manager"
+    },
+    {
+      "id": "backend_engineer",
+      "display_name": "Backend Engineer",
+      "capabilities": ["backend_implementation", "api_operations", "service_verification"],
+      "tools": ["repo.read", "repo.write_backend", "ci.run", "service.deploy", "incident.update"],
+      "data_scopes": ["repo", "ci", "services", "incidents"],
+      "capacity": 2,
+      "reports_to": "product_manager"
+    },
+    {
+      "id": "marketer",
+      "display_name": "Marketer",
+      "capabilities": ["positioning", "campaign_drafting", "distribution_staging"],
+      "tools": ["brand.read", "campaign.write", "campaign.stage", "campaign.publish"],
+      "data_scopes": ["brand", "campaigns", "approved_metrics"],
+      "capacity": 1,
+      "reports_to": "product_manager"
+    }
+  ],
+  "routing": {
+    "mode": "hybrid",
+    "edges": [
+      {"from": "executive", "to": "product_manager", "kinds": ["delegate", "return"]},
+      {"from": "product_manager", "to": "executive", "kinds": ["consult", "approve", "escalate", "return"]},
+      {"from": "product_manager", "to": "analyst", "kinds": ["delegate", "consult", "return"]},
+      {"from": "product_manager", "to": "designer", "kinds": ["delegate", "consult", "review", "return"]},
+      {"from": "product_manager", "to": "frontend_engineer", "kinds": ["delegate", "review", "return"]},
+      {"from": "product_manager", "to": "backend_engineer", "kinds": ["delegate", "review", "return"]},
+      {"from": "product_manager", "to": "marketer", "kinds": ["delegate", "review", "return"]},
+      {"from": "frontend_engineer", "to": "designer", "kinds": ["consult", "review", "return"]},
+      {"from": "frontend_engineer", "to": "backend_engineer", "kinds": ["consult", "return"]},
+      {"from": "backend_engineer", "to": "frontend_engineer", "kinds": ["consult", "return"]},
+      {"from": "marketer", "to": "analyst", "kinds": ["consult", "return"]},
+      {"from": "marketer", "to": "product_manager", "kinds": ["review", "approve", "return"]},
+      {"from": "analyst", "to": "product_manager", "kinds": ["return", "consult"]},
+      {"from": "designer", "to": "product_manager", "kinds": ["return", "review"]},
+      {"from": "frontend_engineer", "to": "product_manager", "kinds": ["return", "escalate"]},
+      {"from": "backend_engineer", "to": "product_manager", "kinds": ["return", "escalate"]}
+    ]
+  },
+  "systems": [
+    {
+      "id": "work",
+      "tools": [
+        {"id": "work.create", "effect": "write"},
+        {"id": "work.read", "effect": "read"}
+      ]
+    },
+    {
+      "id": "strategy",
+      "tools": [
+        {"id": "strategy.read", "effect": "read"},
+        {"id": "directive.write", "effect": "write"}
+      ]
+    },
+    {
+      "id": "product",
+      "tools": [
+        {"id": "product.read", "effect": "read"},
+        {"id": "plan.write", "effect": "write"}
+      ]
+    },
+    {
+      "id": "analytics",
+      "tools": [
+        {"id": "warehouse.query", "effect": "read"},
+        {"id": "notebook.write", "effect": "write"},
+        {"id": "finding.write", "effect": "write"}
+      ]
+    },
+    {
+      "id": "design",
+      "tools": [
+        {"id": "design.read", "effect": "read"},
+        {"id": "design_spec.write", "effect": "write"},
+        {"id": "prototype.write", "effect": "write"}
+      ]
+    },
+    {
+      "id": "engineering",
+      "tools": [
+        {"id": "repo.read", "effect": "read"},
+        {"id": "repo.write_frontend", "effect": "write"},
+        {"id": "repo.write_backend", "effect": "write"},
+        {"id": "ci.run", "effect": "write"},
+        {"id": "browser.test", "effect": "write"},
+        {"id": "service.deploy", "effect": "external"},
+        {"id": "incident.update", "effect": "write"},
+        {"id": "release.stage", "effect": "write"}
+      ]
+    },
+    {
+      "id": "campaigns",
+      "tools": [
+        {"id": "brand.read", "effect": "read"},
+        {"id": "campaign.write", "effect": "write"},
+        {"id": "campaign.stage", "effect": "write"},
+        {"id": "campaign.publish", "effect": "external"}
+      ]
+    },
+    {
+      "id": "approvals",
+      "tools": [
+        {"id": "approval.resolve", "effect": "approval"}
+      ]
+    }
+  ],
+  "policies": [
+    {"id": "POL-PUBLISH-001", "kind": "publication", "applies_to": ["campaign.publish"]},
+    {"id": "POL-SPEND-001", "kind": "spend", "applies_to": ["campaign.publish", "service.deploy"]},
+    {"id": "POL-ROLE-001", "kind": "authority", "applies_to": ["all"]},
+    {"id": "POL-QUALITY-001", "kind": "quality", "applies_to": ["release.stage", "service.deploy"]},
+    {"id": "POL-PRIVACY-001", "kind": "privacy", "applies_to": ["warehouse", "campaigns"]}
+  ]
+}

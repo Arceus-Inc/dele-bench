@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dele-bench.dev/schemas/reference.schema.json",
+  "title": "Dele-bench private task reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "required_capabilities",
+    "required_state",
+    "forbidden_state",
+    "trace_constraints",
+    "closure"
+  ],
+  "properties": {
+    "task_id": {"type": "string"},
+    "required_capabilities": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "required_state": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/predicate"}
+    },
+    "forbidden_state": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/predicate"}
+    },
+    "trace_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precedence", "handoffs"],
+      "properties": {
+        "precedence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["before", "after"],
+            "properties": {
+              "before": {"type": "string"},
+              "after": {"type": "string"}
+            }
+          }
+        },
+        "handoffs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["from_capability", "to_capability", "kind", "required_context"],
+            "properties": {
+              "from_capability": {"type": "string"},
+              "to_capability": {"type": "string"},
+              "kind": {
+                "enum": ["delegate", "consult", "review", "approve", "escalate", "return"]
+              },
+              "required_context": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "max_handoffs": {"type": "integer", "minimum": 1},
+        "must_refuse": {"type": "string"}
+      }
+    },
+    "approval_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["capability", "decision", "rule_citations"],
+        "properties": {
+          "capability": {"type": "string"},
+          "decision": {
+            "enum": [
+              "approve",
+              "reject",
+              "require_docs",
+              "require_preapproval",
+              "not_applicable"
+            ]
+          },
+          "rule_citations": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "required_docs": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_status", "callback_required", "open_children"],
+      "properties": {
+        "root_status": {"enum": ["completed", "blocked", "refused"]},
+        "callback_required": {"type": "boolean"},
+        "open_children": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "predicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "op"],
+      "properties": {
+        "path": {"type": "string"},
+        "op": {"enum": ["eq", "neq", "exists", "absent", "contains", "count"]},
+        "value": {}
+      }
+    }
+  }
+}
