@@ -1,0 +1,20 @@
+{
+  "id": "world-018",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "bugs": {
+      "BUG-91": {
+        "status": "open"
+      }
+    },
+    "repo": {
+      "frontend": {}
+    },
+    "work": {
+      "BUG-91": {
+        "child_count": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "world-001",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "incidents": {
+      "INC-104": {
+        "status": "open"
+      }
+    },
+    "services": {
+      "checkout": {
+        "card_payments": "degraded"
+      }
+    }
+  }
+}

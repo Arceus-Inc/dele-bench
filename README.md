@@ -59,10 +59,11 @@ dele-bench/
   data/v0.1/
     tasks.jsonl                 # publishable
     references.jsonl            # private evaluation data
-  adapters/
-    README.md
+    worlds/                     # pristine seed state per task
   docs/
     DATASET_CARD.md
+  adapters/
+    README.md
   validate.py
 ```
 
@@ -188,8 +189,9 @@ while bypassing approval is not successful.
 - capacity and recovery;
 - callback and organizational closure.
 
-These records are a dataset specification and validation corpus. A runnable environment still needs a
-world implementation and an adapter. `adapters/README.md` defines that boundary.
+These records are a **v0.1 seed corpus**: schemas, tasks, references, organization fixture, and
+pristine world seeds. A runnable mock environment, policy engine, and grader harness are the next
+milestones. See `docs/DATASET_CARD.md`.
 
 ## Arceus
 

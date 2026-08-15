@@ -1,0 +1,13 @@
+{
+  "id": "world-002",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "design": {},
+    "releases": {
+      "activation": {
+        "status": "draft"
+      }
+    }
+  }
+}

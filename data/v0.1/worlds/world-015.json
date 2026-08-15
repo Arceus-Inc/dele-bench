@@ -1,0 +1,17 @@
+{
+  "id": "world-015",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "releases": {
+      "REL-44": {
+        "status": "in_progress"
+      }
+    },
+    "services": {
+      "accounts": {
+        "real_deletions": 0
+      }
+    }
+  }
+}

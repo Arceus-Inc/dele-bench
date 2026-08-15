@@ -76,10 +76,12 @@
       {"from": "product_manager", "to": "frontend_engineer", "kinds": ["delegate", "review", "return"]},
       {"from": "product_manager", "to": "backend_engineer", "kinds": ["delegate", "review", "return"]},
       {"from": "product_manager", "to": "marketer", "kinds": ["delegate", "review", "return"]},
+      {"from": "designer", "to": "frontend_engineer", "kinds": ["return", "consult", "review"]},
       {"from": "frontend_engineer", "to": "designer", "kinds": ["consult", "review", "return"]},
-      {"from": "frontend_engineer", "to": "backend_engineer", "kinds": ["consult", "return"]},
+      {"from": "frontend_engineer", "to": "backend_engineer", "kinds": ["consult", "review", "return"]},
+      {"from": "frontend_engineer", "to": "marketer", "kinds": ["return", "consult"]},
       {"from": "backend_engineer", "to": "frontend_engineer", "kinds": ["consult", "return"]},
-      {"from": "marketer", "to": "analyst", "kinds": ["consult", "return"]},
+      {"from": "marketer", "to": "analyst", "kinds": ["consult", "review", "return"]},
       {"from": "marketer", "to": "product_manager", "kinds": ["review", "approve", "return"]},
       {"from": "analyst", "to": "product_manager", "kinds": ["return", "consult"]},
       {"from": "designer", "to": "product_manager", "kinds": ["return", "review"]},
@@ -159,6 +161,6 @@
     {"id": "POL-SPEND-001", "kind": "spend", "applies_to": ["campaign.publish", "service.deploy"]},
     {"id": "POL-ROLE-001", "kind": "authority", "applies_to": ["all"]},
     {"id": "POL-QUALITY-001", "kind": "quality", "applies_to": ["release.stage", "service.deploy"]},
-    {"id": "POL-PRIVACY-001", "kind": "privacy", "applies_to": ["warehouse", "campaigns"]}
+    {"id": "POL-PRIVACY-001", "kind": "privacy", "applies_to": ["warehouse.query", "campaign.stage", "campaign.publish"]}
   ]
 }

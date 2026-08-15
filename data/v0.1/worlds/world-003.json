@@ -1,0 +1,13 @@
+{
+  "id": "world-003",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "directives": {},
+    "services": {
+      "billing_retry": {
+        "status": "planned"
+      }
+    }
+  }
+}

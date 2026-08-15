@@ -1,0 +1,28 @@
+{
+  "id": "world-017",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "findings": {},
+    "decisions": {},
+    "design": {},
+    "services": {
+      "team_invite": {
+        "status": "down"
+      }
+    },
+    "repo": {
+      "frontend": {}
+    },
+    "campaigns": {
+      "team_invite": {
+        "status": "draft"
+      }
+    },
+    "initiatives": {
+      "team_invite": {
+        "status": "open"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "world-008",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "incidents": {
+      "INC-220": {
+        "status": "open"
+      }
+    },
+    "services": {
+      "authentication": {
+        "status": "degraded"
+      }
+    },
+    "work": {
+      "INC-220": {
+        "owner_count": 2,
+        "duplicate_assignments": true
+      }
+    }
+  }
+}

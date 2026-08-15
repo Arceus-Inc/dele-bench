@@ -116,7 +116,9 @@
       "required": ["path", "op"],
       "properties": {
         "path": {"type": "string"},
-        "op": {"enum": ["eq", "neq", "exists", "absent", "contains", "count"]},
+        "op": {
+          "enum": ["eq", "neq", "exists", "absent", "contains", "count", "lt", "lte", "gt", "gte"]
+        },
         "value": {}
       }
     }

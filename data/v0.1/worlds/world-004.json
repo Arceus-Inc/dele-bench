@@ -1,0 +1,21 @@
+{
+  "id": "world-004",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "campaigns": {
+      "winback": {
+        "status": "draft",
+        "claims": {
+          "retention_lift": 18
+        }
+      }
+    },
+    "findings": {},
+    "approvals": {
+      "winback_publish": {
+        "status": "none"
+      }
+    }
+  }
+}

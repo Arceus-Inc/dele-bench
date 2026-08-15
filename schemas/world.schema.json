@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dele-bench.dev/schemas/world.schema.json",
+  "title": "Dele-bench world fixture",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "version", "state"],
+  "properties": {
+    "id": {"type": "string"},
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "state": {
+      "type": "object",
+      "description": "Pristine business state before the organization run begins."
+    }
+  }
+}

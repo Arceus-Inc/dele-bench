@@ -1,0 +1,17 @@
+{
+  "id": "world-009",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "releases": {
+      "REL-31": {
+        "status": "in_progress"
+      }
+    },
+    "work": {
+      "REL-31": {
+        "recreated_passed_children": true
+      }
+    }
+  }
+}

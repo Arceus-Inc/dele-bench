@@ -1,0 +1,14 @@
+{
+  "id": "world-016",
+  "version": "0.1.0",
+  "description": "Pristine seed state. Required assertions must fail before a successful org run.",
+  "state": {
+    "findings": {},
+    "work": {
+      "FUN-9": {
+        "owner_count": 2,
+        "duplicate_assignments": true
+      }
+    }
+  }
+}
